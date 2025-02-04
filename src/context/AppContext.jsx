@@ -5,14 +5,10 @@ import { useNavigate } from "react-router-dom";
 export const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
-  const currency = import.meta.env.VITE_CURRENCY;
-
   const navigate = useNavigate(); // Ensure useNavigate is defined
 
   const [allCourses, setAllCourses] = useState([]);
-
   const [isEducator, setIsEducator] = useState([true]);
-
 
   // Fetch All Courses
   const fetchAllCourses = async () => {
@@ -36,12 +32,11 @@ export const AppContextProvider = (props) => {
   }, []);
 
   const value = {
-    currency,
     allCourses,
     navigate,
     calculatingRating,
-     isEducator,
-     setIsEducator
+    isEducator,
+    setIsEducator
   };
 
   return (
