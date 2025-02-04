@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import logo from '../../assets/logo.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 
@@ -14,6 +13,8 @@ const NavBar = () => {
     const [formVisible, setFormVisible] = useState(false);
     const [message, setMessage] = useState('');
 
+    const logo = '/Blue and Green Modern Technology.png'; // Reference from the public folder
+
     const closeModal = () => {
         setFormVisible(false);
         setEmail('');
@@ -23,7 +24,9 @@ const NavBar = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const url = isLogin ? 'https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/login' : 'https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/register';
+        const url = isLogin 
+            ? 'https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/login' 
+            : 'https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/register';
 
         try {
             const response = await fetch(url, {
@@ -56,7 +59,12 @@ const NavBar = () => {
 
     return (
         <div className={`flex items-center justify-between px-4 sm:px-10 md:px-14 lg:px-36 border-b border-gray-500 py-4 ${isCourseListPage ? 'bg-white' : 'bg-cyan-100/70'}`}>
-            <img onClick={() => navigate('/')} src={logo} alt="Logo" className='w-28 lg:w-32 cursor-pointer' />
+            <img 
+                onClick={() => navigate('/')} 
+                src={logo} 
+                alt="Logo" 
+                className='w-28 lg:w-32 cursor-pointer' 
+            />
 
             <div className='flex ml-auto items-center gap-5 text-lg text-gray-500'>
                 <div className='flex items-center gap-5'>
@@ -72,10 +80,16 @@ const NavBar = () => {
                     )}
                 </div>
 
-                <button onClick={() => { setIsLogin(true); setFormVisible(true); }} className='bg-blue-600 text-white px-4 py-2 rounded-full'>
+                <button 
+                    onClick={() => { setIsLogin(true); setFormVisible(true); }} 
+                    className='bg-blue-600 text-white px-4 py-2 rounded-full'
+                >
                     Login
                 </button>
-                <button onClick={() => { setIsLogin(false); setFormVisible(true); }} className='bg-blue-600 text-white px-4 py-2 rounded-full'>
+                <button 
+                    onClick={() => { setIsLogin(false); setFormVisible(true); }} 
+                    className='bg-blue-600 text-white px-4 py-2 rounded-full'
+                >
                     Register
                 </button>
             </div>
