@@ -4,21 +4,36 @@ const Quizzes = () => {
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState({});
     const [score, setScore] = useState(null);
+    const [loading, setLoading] = useState(true); // Add loading state
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const fetchQuestions = async () => {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://127.0.0.1:5000/quizzes', {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            if (!token) {
+                setErrorMessage('You must be logged in to view quizzes.');
+                setLoading(false);
+                return;
+            }
 
-            if (response.ok) {
-                const data = await response.json();
-                setQuestions(data);
-            } else {
-                console.error('Failed to fetch questions');
+            try {
+                const response = await fetch('https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/app/quizzes', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    setQuestions(data);
+                } else {
+                    setErrorMessage('Failed to fetch questions. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error fetching questions:', error);
+                setErrorMessage('An error occurred while fetching quizzes.');
+            } finally {
+                setLoading(false); // Set loading to false once fetching is done
             }
         };
         fetchQuestions();
@@ -30,7 +45,7 @@ const Quizzes = () => {
 
     const handleSubmit = async () => {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://127.0.0.1:5000/submit', {
+        const response = await fetch('https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/app/submit', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,6 +67,14 @@ const Quizzes = () => {
             console.error('Failed to submit answers');
         }
     };
+
+    if (loading) {
+        return <div>Loading quizzes...</div>;
+    }
+
+    if (errorMessage) {
+        return <div>{errorMessage}</div>;
+    }
 
     return (
         <div>

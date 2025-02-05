@@ -13,7 +13,7 @@ const NavBar = () => {
     const [formVisible, setFormVisible] = useState(false);
     const [message, setMessage] = useState('');
 
-    const logo = '/Blue and Green Modern Technology.png'; // Reference from the public folder
+    const logo = '/Blue and Green Modern Technology.png';
 
     const closeModal = () => {
         setFormVisible(false);
@@ -25,8 +25,8 @@ const NavBar = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const url = isLogin 
-            ? 'https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/login' 
-            : 'https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/register';
+            ? 'https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/app/login' 
+            : 'https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/app/register';
 
         try {
             const response = await fetch(url, {
@@ -49,11 +49,11 @@ const NavBar = () => {
                 }
                 closeModal(); // Close the modal after success
             } else {
-                setMessage(data.message);
+                setMessage(data.message || 'An error occurred. Please try again.');
             }
         } catch (error) {
             console.error('Network error:', error);
-            setMessage('An error occurred. Please try again.');
+            setMessage('An error occurred. Please check your network connection.');
         }
     };
 
@@ -74,9 +74,7 @@ const NavBar = () => {
                             <Link to='/my-enrollments' className='hover:text-blue-600'>My Enrollments</Link>
                         </>
                     ) : (
-                        <>
-                            <Link to='/my-enrollments' className='hover:text-blue-600'>My Enrollments</Link>
-                        </>
+                        <Link to='/my-enrollments' className='hover:text-blue-600'>My Enrollments</Link>
                     )}
                 </div>
 
