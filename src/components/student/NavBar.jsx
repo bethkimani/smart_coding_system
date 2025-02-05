@@ -25,8 +25,8 @@ const NavBar = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const url = isLogin 
-            ? 'https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/app/login' 
-            : 'https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/app/register';
+    ? 'https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/app/login' 
+    : 'https://smart-code-learning-mabethkimani-smart-oqwb.onrender.com/app/register';
 
         try {
             const response = await fetch(url, {
